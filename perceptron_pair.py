@@ -2,14 +2,6 @@
 
 import numpy as np
 
-def makeGram(inputs):
-    m = len(inputs)
-    gramatrix = np.zeros((m,m))
-    for i in range(m):
-        for j in range(m):
-            gramatrix[i][j] = np.dot(inputs[i], inputs[j])
-    return gramatrix
-
 
 class PerceptionPair:
     def __init__(self, dataSet, target, learningrate=1):
@@ -18,7 +10,6 @@ class PerceptionPair:
         self.b = 0.0
         self.gram = np.matmul(np.array(dataSet), np.array(dataSet).T)
         self.target = target
-
 
     def calc(self,i):
         res = np.dot(self.a*self.target, self.gram[i])
@@ -34,10 +25,6 @@ class PerceptionPair:
                 self.a[i] += self.lr
                 self.b += target[i]
                 print(self.a, self.b)
-
-
-  
-
 
 if __name__ == '__main__':
     inputs = [[3, 3], [4, 3], [1, 1]]
