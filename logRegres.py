@@ -5,7 +5,7 @@ from math import exp
 from scipy.special import expit
 
 def loadDataSet():
-    data = np.genfromtxt('testSet.txt')
+    data = np.genfromtxt('./dataset/testSet5.txt')
     dataMat = data[:,0:2]
     labels = data[:, -1]
     return dataMat, labels
@@ -13,7 +13,7 @@ def loadDataSet():
 
 def loadDataSet2():
     dataMat = []; labelMat = []
-    fr = open('testSet.txt')
+    fr = open('./dataset/testSet5.txt')
     for line in fr.readlines():
         lineArr = line.strip().split()
         dataMat.append([1.0, float(lineArr[0]), float(lineArr[1])])
@@ -39,6 +39,16 @@ def gradAscent(dataMatIn, classLabels):
         h = sigmoid(dataMatrix*weights)
         error = (labelMat -h)
         weights = weights + alpha * dataMatrix.transpose() * error
+    return weights
+
+def stocGradAscent0(dataMatrix, classLabels):
+    m,n = np.shape(dataMatrix)
+    alpha = 0.01
+    weights = np.ones(n)
+    for i in range(m):
+        h = sigmoid(sum(dataMatrix[i]*weights))
+        error = classLabels[i] - h
+        weights = weights + alpha * error * dataMatrix[i]
     return weights
 
 
